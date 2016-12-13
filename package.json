@@ -1,0 +1,26 @@
+{
+  "name": "poddy",
+  "version": "1.0.0",
+  "description": "Command line podcast manager.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dezitter/poddy.git"
+  },
+  "keywords": [
+    "podcast"
+  ],
+  "author": "Laurent Dezitter <laurent.dezitter@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dezitter/poddy/issues"
+  },
+  "homepage": "https://github.com/dezitter/poddy#readme"
+}
