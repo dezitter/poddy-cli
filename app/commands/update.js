@@ -1,4 +1,5 @@
 import * as provider from 'app/provider';
+import { ellipsize } from './utils/ellipsize';
 import { fetchAndParse } from 'app/feed/fetch-and-parse';
 import { formatDate } from './utils/format-date';
 import { onError } from './utils/on-error';
@@ -31,7 +32,10 @@ export function handler() {
         logger.info(feed.name);
 
         feed.episodes.forEach((item, i) => {
-            logger.log(`[${i}]: ${item.title} (${formatDate(item.pubDate)})`);
+            const dateStr = formatDate(item.pubDate);
+            const title = ellipsize(item.title);
+
+            logger.log(`[${i}]: ${title} (${dateStr})`);
         });
     }
 }

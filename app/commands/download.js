@@ -1,7 +1,8 @@
+import * as provider from 'app/provider';
 import ProgressBar from 'progress';
+import { ellipsize } from './utils/ellipsize';
 import { onError } from './utils/on-error';
 import { parseNumbers } from './utils/parse-numbers';
-import * as provider from 'app/provider';
 
 export const command = 'download <name> <numbers>';
 export const describe = 'Download episodes from a podcast';
@@ -36,7 +37,9 @@ export function handler(argv) {
                 .on('finish', onDownloadFinish);
 
             function onDownloadStart(info) {
-                logger.info(`Starting download of ${episode.title}`);
+                const title = ellipsize(episode.title);
+
+                logger.info(`Starting download of ${title}`);
                 progressBar = createProgressBar(info);
             }
 
@@ -45,7 +48,9 @@ export function handler(argv) {
             }
 
             function onDownloadFinish(info) {
-                logger.success(`${episode.title} successfully downloaded at ${info.filepath}`);
+                const title = ellipsize(episode.title);
+
+                logger.success(`${title} successfully downloaded at ${info.filepath}`);
             }
         })
         .catch(onError);
