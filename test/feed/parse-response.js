@@ -1,3 +1,5 @@
+/* global beforeEach, describe, it */
+
 import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
