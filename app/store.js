@@ -34,4 +34,18 @@ export default class Store {
             this.db.remove({ name }, cb);
         });
     }
+
+    find(name) {
+        return this._promisify(cb => {
+            this.db.findOne({ name }, cb);
+        });
+    }
+
+    update(feed, patch) {
+        return this._promisify(cb => {
+            this.db.update({ _id: feed._id }, { $set: patch }, cb);
+        })
+        .then(() => this.find(feed.name));
+
+    }
 }
