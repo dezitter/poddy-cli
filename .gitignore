@@ -1,3 +1,4 @@
 .env
 feeds.db
+podcasts/
 node_modules/
