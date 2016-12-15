@@ -1,7 +1,7 @@
 import * as provider from 'app/provider';
 import { fetchAndParse } from 'app/feed/fetch-and-parse';
-import { formatDate } from './/utils/format-date';
-import { onError } from './/utils/on-error';
+import { formatDate } from './utils/format-date';
+import { onError } from './utils/on-error';
 
 export const command = 'update';
 export const describe = 'Update all feeds';
