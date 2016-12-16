@@ -1,4 +1,5 @@
 .env
 podcasts.db
+build/
 podcasts/
 node_modules/
