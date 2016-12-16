@@ -4,14 +4,27 @@ import { fetchAndParse } from 'app/feed/fetch-and-parse';
 import { formatDate } from './utils/format-date';
 import { onError } from './utils/on-error';
 
-export const command = 'update';
+export const command = 'update [name]';
 export const describe = 'Update all feeds';
 
-export function handler() {
+function findOrList(name) {
+    const store = provider.getStore();
+
+    if (name) {
+        return store
+            .find(name)
+            .then(feed => [feed]);
+    } else {
+        return store.list();
+    }
+}
+
+export function handler(argv) {
+    const name = argv.name;
     const store = provider.getStore();
     const logger = provider.getLogger();
 
-    store.list()
+    findOrList(name)
          .then(onListResolve)
          .catch(onError);
 
