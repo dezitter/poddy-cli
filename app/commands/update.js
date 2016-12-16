@@ -1,5 +1,5 @@
 import * as provider from 'app/provider';
-import { fetchAndParse } from 'app/feed/fetch-and-parse';
+import { fetchAndUpdate } from 'app/feed/fetch-and-update';
 import { findOrList } from './utils/find-or-list';
 import { onError } from './utils/on-error';
 
@@ -8,7 +8,6 @@ export const describe = 'Update all podcasts';
 
 export function handler(argv) {
     const name = argv.name;
-    const store = provider.getStore();
     const logger = provider.getLogger();
 
     findOrList(name)
@@ -21,11 +20,7 @@ export function handler(argv) {
         }
 
         podcasts.forEach(podcast => {
-            fetchAndParse(podcast.url)
-                .then(result => {
-                    const patch = Object.assign({ syncedAt: new Date() }, result);
-                    return store.update(podcast, patch);
-                })
+            fetchAndUpdate(podcast)
                 .then(showResults)
                 .catch(onError);
         });
