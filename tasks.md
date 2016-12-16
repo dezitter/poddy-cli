@@ -7,9 +7,9 @@
 * [ ] list command: add optional [name] argument
 * [x] list command: print episodes list
  * [ ] list command: add a --limit option
- * [ ] list command: adjust title to consistent width
- * [ ] list command: pad episode number (0-pad)
- * [ ] list command: truncate title
+ * [x] list command: adjust title to consistent width
+ * [x] list command: pad episode number (0-pad)
+ * [x] list command: truncate title
 
 * [ ] store update result in store with 'syncedAt' timestamp
 * [ ] when fetching

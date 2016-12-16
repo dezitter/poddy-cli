@@ -1,7 +1,8 @@
 import * as provider from 'app/provider';
 import { onError } from './utils/on-error';
-import { ellipsize } from './utils/ellipsize';
 import { formatDate } from './utils/format-date';
+import { formatTitle } from './utils/format-title';
+import { padNumberStart } from './utils/pad-number-start';
 
 export const command = 'list';
 export const describe = 'List all podcasts';
@@ -20,14 +21,19 @@ export function handler() {
         }
 
         podcasts.forEach(podcast => {
-            logger.log(`${podcast.name} (${podcast.url})`);
+            const epsNumber = podcast.episodes.length;
+
+            logger.log(`# ${podcast.name} (${podcast.url})`);
 
             podcast.episodes.forEach((episode, i) => {
-                const title = ellipsize(episode.title);
+                const number = padNumberStart(i, epsNumber.toString().length);
                 const pubDate = formatDate(episode.pubDate);
+                const title = formatTitle(episode.title);
 
-                logger.log(`[${i}]: ${title} (${pubDate})`);
+                logger.log(`[${number}] ${title} (${pubDate})`);
             });
+
+            logger.log('');
         });
     }
 }
