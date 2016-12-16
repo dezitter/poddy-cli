@@ -1,21 +1,10 @@
 import * as provider from 'app/provider';
 import { fetchAndParse } from 'app/feed/fetch-and-parse';
+import { findOrList } from './utils/find-or-list';
 import { onError } from './utils/on-error';
 
 export const command = 'update [name]';
 export const describe = 'Update all podcasts';
-
-function findOrList(name) {
-    const store = provider.getStore();
-
-    if (name) {
-        return store
-            .find(name)
-            .then(podcast => [podcast]);
-    } else {
-        return store.list();
-    }
-}
 
 export function handler(argv) {
     const name = argv.name;

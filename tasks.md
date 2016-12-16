@@ -2,6 +2,8 @@
 
 * [x] update command: print 'Successfully updated' with episode count only
 
+* [ ] add a commands/utils/index module to regroup utilities
+
 * [ ] list command: add optional [name] argument
 * [ ] list command: print episodes list
  * [ ] list command: add a --limit option
