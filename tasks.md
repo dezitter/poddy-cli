@@ -1,7 +1,8 @@
 * [x] differentiate between podcast (name/url) & feed (podcast resource)
 
-* [ ] update command: print 'Successfully updated' with episode count only
+* [x] update command: print 'Successfully updated' with episode count only
 
+* [ ] list command: add optional [name] argument
 * [ ] list command: print episodes list
  * [ ] list command: add a --limit option
  * [ ] list command: adjust title to consistent width

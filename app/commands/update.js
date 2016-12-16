@@ -1,7 +1,5 @@
 import * as provider from 'app/provider';
-import { ellipsize } from './utils/ellipsize';
 import { fetchAndParse } from 'app/feed/fetch-and-parse';
-import { formatDate } from './utils/format-date';
 import { onError } from './utils/on-error';
 
 export const command = 'update [name]';
@@ -42,13 +40,9 @@ export function handler(argv) {
     }
 
     function showResults(podcast) {
-        logger.info(podcast.name);
+        const name = podcast.name;
+        const nbEps = podcast.episodes.length;
 
-        podcast.episodes.forEach((episode, i) => {
-            const dateStr = formatDate(episode.pubDate);
-            const title = ellipsize(episode.title);
-
-            logger.log(`[${i}]: ${title} (${dateStr})`);
-        });
+        logger.info(`"${name}" updated, ${nbEps} episodes found.`);
     }
 }
