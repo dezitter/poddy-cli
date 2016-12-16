@@ -6,7 +6,7 @@
 
 * [ ] list command: add optional [name] argument
 * [x] list command: print episodes list
- * [ ] list command: add a --limit option
+ * [x] list command: add a --limit option
  * [x] list command: adjust title to consistent width
  * [x] list command: pad episode number (0-pad)
  * [x] list command: truncate title

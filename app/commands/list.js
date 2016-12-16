@@ -4,12 +4,20 @@ import { formatDate } from './utils/format-date';
 import { formatTitle } from './utils/format-title';
 import { padNumberStart } from './utils/pad-number-start';
 
-export const command = 'list';
+export const command = 'list [--limit=NUMBER]';
 export const describe = 'List all podcasts';
 
-export function handler() {
+export const builder = {
+    limit: {
+        default: Infinity,
+        number: true
+    }
+};
+
+export function handler(argv) {
     const store = provider.getStore();
     const logger = provider.getLogger();
+    const limit = argv.limit;
 
     store.list()
          .then(onResolve)
@@ -23,15 +31,17 @@ export function handler() {
         podcasts.forEach(podcast => {
             const epsNumber = podcast.episodes.length;
 
-            logger.log(`# ${podcast.name} (${podcast.url})`);
+            logger.log(`# ${podcast.name} - ${epsNumber} episodes (${podcast.url})`);
 
-            podcast.episodes.forEach((episode, i) => {
-                const number = padNumberStart(i, epsNumber.toString().length);
-                const pubDate = formatDate(episode.pubDate);
-                const title = formatTitle(episode.title);
+            podcast.episodes
+                .slice(0, limit)
+                .forEach((episode, i) => {
+                    const number = padNumberStart(i, epsNumber.toString().length);
+                    const pubDate = formatDate(episode.pubDate);
+                    const title = formatTitle(episode.title);
 
-                logger.log(`[${number}] ${title} (${pubDate})`);
-            });
+                    logger.log(`[${number}] ${title} (${pubDate})`);
+                });
 
             logger.log('');
         });

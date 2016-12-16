@@ -14,4 +14,6 @@ yargs
     .command(removeCommand)
     .command(updateCommand)
     .demand(1)
+    .strict()
+    .help()
     .argv;
