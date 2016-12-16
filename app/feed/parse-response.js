@@ -25,7 +25,7 @@ export function parseResponse(response) {
 
 function parseItem(item) {
     return {
-        title: item.title,
+        title: item.title.trim(),
         description: item.description,
         pubDate: new Date(item.pubDate),
         enclosure: item.enclosure

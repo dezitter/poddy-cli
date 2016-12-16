@@ -1,5 +1,7 @@
 import * as provider from 'app/provider';
 import { onError } from './utils/on-error';
+import { ellipsize } from './utils/ellipsize';
+import { formatDate } from './utils/format-date';
 
 export const command = 'list';
 export const describe = 'List all podcasts';
@@ -13,10 +15,19 @@ export function handler() {
          .catch(onError);
 
     function onResolve(podcasts) {
-        logger.info(`You currently have ${podcasts.length} podcast(s)`);
+        if (podcasts.length === 0) {
+            logger.info('You don\'t have any podcasts yet.');
+        }
 
-        podcasts.forEach((podcast, i) => {
-            logger.log(`${i}: ${podcast.name} (${podcast.url})`);
+        podcasts.forEach(podcast => {
+            logger.log(`${podcast.name} (${podcast.url})`);
+
+            podcast.episodes.forEach((episode, i) => {
+                const title = ellipsize(episode.title);
+                const pubDate = formatDate(episode.pubDate);
+
+                logger.log(`[${i}]: ${title} (${pubDate})`);
+            });
         });
     }
 }
