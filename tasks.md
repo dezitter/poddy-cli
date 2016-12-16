@@ -1,20 +1,8 @@
-* [x] differentiate between podcast (name/url) & feed (podcast resource)
+* [ ] [command/add] update podcast once added
+* [ ] [command/add] validate url
 
-* [x] update command: print 'Successfully updated' with episode count only
+* [ ] [command/list] add sorting (name, by most recent ep., most ep. count)
 
 * [ ] add a commands/utils/index module to regroup utilities
-
-* [x] list command: add optional [name] argument
-* [x] list command: print episodes list
- * [x] list command: add a --limit option
- * [x] list command: adjust title to consistent width
- * [x] list command: pad episode number (0-pad)
- * [x] list command: truncate title
-
-* [x] store update result in store with 'syncedAt' timestamp
-* [x] when fetching
- - store etag if in headers
- - use etag || if-Modified-Since to save fetching of full feed if not changed
- - when updating, differentiate between not modified & updated
-
-* [ ] add npm build && npm start scripts
+* [ ] add npm build scripts
+* [ ] write install/build/usage instructions
