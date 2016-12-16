@@ -7,7 +7,7 @@ import url from 'url';
 
 function getFilename(episode) {
     return path.basename(
-        url.parse(episode.enclosure.url).path
+        url.parse(episode.enclosure.url).pathname
     );
 }
 
