@@ -11,7 +11,7 @@
  * [x] list command: pad episode number (0-pad)
  * [x] list command: truncate title
 
-* [ ] store update result in store with 'syncedAt' timestamp
+* [x] store update result in store with 'syncedAt' timestamp
 * [ ] when fetching
  - store etag if in headers
  - use etag || if-Modified-Since to save fetching of full feed if not changed

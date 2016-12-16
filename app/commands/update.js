@@ -22,7 +22,10 @@ export function handler(argv) {
 
         podcasts.forEach(podcast => {
             fetchAndParse(podcast.url)
-                .then(result => store.update(podcast, result))
+                .then(result => {
+                    const patch = Object.assign({ syncedAt: new Date() }, result);
+                    return store.update(podcast, patch);
+                })
                 .then(showResults)
                 .catch(onError);
         });
