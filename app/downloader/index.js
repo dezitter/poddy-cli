@@ -11,23 +11,23 @@ function getFilename(episode) {
     );
 }
 
-function getFilepath(root, feed, episode) {
+function getFilepath(root, podcast, episode) {
     const filename = getFilename(episode);
 
-    return path.join(root, feed.name, filename);
+    return path.join(root, podcast.name, filename);
 }
 
 export default class Downloader extends EventEmitter {
 
-    constructor(feed, options) {
+    constructor(podcast, options) {
         super();
 
-        this.feed = feed;
+        this.podcast = podcast;
         this.directory = options.directory;
     }
 
     download(episode) {
-        const filepath = getFilepath(this.directory, this.feed, episode);
+        const filepath = getFilepath(this.directory, this.podcast, episode);
         const dirpath = path.dirname(filepath);
 
         let total = 0;

@@ -2,7 +2,7 @@ import * as provider from 'app/provider';
 import { onError } from './utils/on-error';
 
 export const command = 'list';
-export const describe = 'List all feeds';
+export const describe = 'List all podcasts';
 
 export function handler() {
     const store = provider.getStore();
@@ -12,11 +12,11 @@ export function handler() {
          .then(onResolve)
          .catch(onError);
 
-    function onResolve(feeds) {
-        logger.info(`You currently have ${feeds.length} feed(s)`);
+    function onResolve(podcasts) {
+        logger.info(`You currently have ${podcasts.length} podcast(s)`);
 
-        feeds.forEach((feed, i) => {
-            logger.log(`${i}: ${feed.name} (${feed.url})`);
+        podcasts.forEach((podcast, i) => {
+            logger.log(`${i}: ${podcast.name} (${podcast.url})`);
         });
     }
 }

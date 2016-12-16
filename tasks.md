@@ -1,4 +1,4 @@
-* [ ] differentiate between podcast (name/url) & feed (podcast resource)
+* [x] differentiate between podcast (name/url) & feed (podcast resource)
 
 * [ ] update command: print 'Successfully updated' with episode count only
 

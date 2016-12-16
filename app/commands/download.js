@@ -24,10 +24,10 @@ export function handler(argv) {
     const store = provider.getStore();
 
     store.find(name)
-        .then(feed => {
+        .then(podcast => {
             const n = numbers[0];
-            const episode = feed.episodes[n];
-            const downloader = provider.getDownloader(feed);
+            const episode = podcast.episodes[n];
+            const downloader = provider.getDownloader(podcast);
             let progressBar;
 
             downloader

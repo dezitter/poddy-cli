@@ -33,6 +33,6 @@ export function getLogger() {
     return logger;
 }
 
-export function getDownloader(feed) {
-    return new Downloader(feed, { directory: downloadDirectory });
+export function getDownloader(podcast) {
+    return new Downloader(podcast, { directory: downloadDirectory });
 }

@@ -41,11 +41,11 @@ export default class Store {
         });
     }
 
-    update(feed, patch) {
+    update(podcast, patch) {
         return this._promisify(cb => {
-            this.db.update({ _id: feed._id }, { $set: patch }, cb);
+            this.db.update({ _id: podcast._id }, { $set: patch }, cb);
         })
-        .then(() => this.find(feed.name));
+        .then(() => this.find(podcast.name));
 
     }
 }

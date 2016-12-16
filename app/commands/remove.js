@@ -2,7 +2,7 @@ import * as provider from 'app/provider';
 import { onError } from './utils/on-error';
 
 export const command = 'remove <name>';
-export const describe = 'Remove a podcast feed';
+export const describe = 'Remove a podcast';
 
 export function handler(argv) {
     const { name } = argv;

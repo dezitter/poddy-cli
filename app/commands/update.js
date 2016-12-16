@@ -5,7 +5,7 @@ import { formatDate } from './utils/format-date';
 import { onError } from './utils/on-error';
 
 export const command = 'update [name]';
-export const describe = 'Update all feeds';
+export const describe = 'Update all podcasts';
 
 function findOrList(name) {
     const store = provider.getStore();
@@ -13,7 +13,7 @@ function findOrList(name) {
     if (name) {
         return store
             .find(name)
-            .then(feed => [feed]);
+            .then(podcast => [podcast]);
     } else {
         return store.list();
     }
@@ -28,25 +28,25 @@ export function handler(argv) {
          .then(onListResolve)
          .catch(onError);
 
-    function onListResolve(feeds) {
-        if (feeds.length === 0) {
-            return logger.warning('You do not have any feeds to update');
+    function onListResolve(podcasts) {
+        if (podcasts.length === 0) {
+            return logger.warning('You do not have any podcasts to update');
         }
 
-        feeds.forEach(feed => {
-            fetchAndParse(feed)
-                .then(result => store.update(feed, result))
+        podcasts.forEach(podcast => {
+            fetchAndParse(podcast.url)
+                .then(result => store.update(podcast, result))
                 .then(showResults)
                 .catch(onError);
         });
     }
 
-    function showResults(feed) {
-        logger.info(feed.name);
+    function showResults(podcast) {
+        logger.info(podcast.name);
 
-        feed.episodes.forEach((item, i) => {
-            const dateStr = formatDate(item.pubDate);
-            const title = ellipsize(item.title);
+        podcast.episodes.forEach((episode, i) => {
+            const dateStr = formatDate(episode.pubDate);
+            const title = ellipsize(episode.title);
 
             logger.log(`[${i}]: ${title} (${dateStr})`);
         });
