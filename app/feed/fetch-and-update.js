@@ -1,5 +1,5 @@
-import * as provider from 'app/provider';
-import { fetchAndParse } from 'app/feed/fetch-and-parse';
+import * as provider from '../provider';
+import { fetchAndParse } from './fetch-and-parse';
 
 export function fetchAndUpdate(podcast) {
     const store = provider.getStore();

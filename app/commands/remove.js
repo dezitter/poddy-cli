@@ -1,4 +1,4 @@
-import * as provider from 'app/provider';
+import * as provider from '../provider';
 import { onError } from './utils/on-error';
 
 export const command = 'remove <name>';

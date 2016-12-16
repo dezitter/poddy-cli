@@ -1,4 +1,4 @@
-import * as provider from 'app/provider';
+import * as provider from '../provider';
 import ProgressBar from 'progress';
 import { ellipsize } from './utils/ellipsize';
 import { onError } from './utils/on-error';

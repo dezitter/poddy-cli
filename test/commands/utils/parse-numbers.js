@@ -1,7 +1,7 @@
 /* global describe, it */
 
 import { expect } from 'chai';
-import { parseNumbers } from 'app/commands/utils/parse-numbers';
+import { parseNumbers } from '../../../app/commands/utils/parse-numbers';
 
 describe('#parseDownloadNumbers()', function() {
 

@@ -1,5 +1,5 @@
-import * as provider from 'app/provider';
-import { fetchAndUpdate } from 'app/feed/fetch-and-update';
+import * as provider from '../provider';
+import { fetchAndUpdate } from '../feed/fetch-and-update';
 import { findOrList } from './utils/find-or-list';
 import { onError } from './utils/on-error';
 

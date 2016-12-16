@@ -1,4 +1,4 @@
-import * as provider from 'app/provider';
+import * as provider from '../provider';
 import { findOrList } from './utils/find-or-list';
 import { formatDate } from './utils/format-date';
 import { formatTitle } from './utils/format-title';

@@ -1,7 +1,7 @@
 /* global describe, it */
 
 import { expect } from 'chai';
-import { ellipsize } from 'app/commands/utils/ellipsize';
+import { ellipsize } from '../../../app/commands/utils/ellipsize';
 
 describe('#ellipsize()', function() {
 

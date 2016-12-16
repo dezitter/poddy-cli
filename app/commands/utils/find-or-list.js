@@ -1,4 +1,4 @@
-import * as provider from 'app/provider';
+import * as provider from '../../provider';
 
 export function findOrList(name) {
     const store = provider.getStore();

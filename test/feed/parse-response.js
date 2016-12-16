@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
 
-import { parseResponse } from 'app/feed/parse-response';
+import { parseResponse } from '../../app/feed/parse-response';
 
 function readTestFeed(done) {
     const options = { encoding: 'utf8' };
