@@ -17,7 +17,7 @@ export default class Store {
 
     add(name, url) {
         return this._promisify(cb => {
-            this.db.insert({ name, url }, cb);
+            this.db.insert({ name, url, episodes: [] }, cb);
         });
     }
 
