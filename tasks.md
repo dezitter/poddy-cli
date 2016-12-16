@@ -12,7 +12,7 @@
  * [x] list command: truncate title
 
 * [x] store update result in store with 'syncedAt' timestamp
-* [ ] when fetching
+* [x] when fetching
  - store etag if in headers
  - use etag || if-Modified-Since to save fetching of full feed if not changed
  - when updating, differentiate between not modified & updated
