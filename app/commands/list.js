@@ -1,10 +1,11 @@
 import * as provider from 'app/provider';
-import { onError } from './utils/on-error';
+import { findOrList } from './utils/find-or-list';
 import { formatDate } from './utils/format-date';
 import { formatTitle } from './utils/format-title';
+import { onError } from './utils/on-error';
 import { padNumberStart } from './utils/pad-number-start';
 
-export const command = 'list [--limit=NUMBER]';
+export const command = 'list [name] [--limit=NUMBER]';
 export const describe = 'List all podcasts';
 
 export const builder = {
@@ -15,11 +16,10 @@ export const builder = {
 };
 
 export function handler(argv) {
-    const store = provider.getStore();
     const logger = provider.getLogger();
-    const limit = argv.limit;
+    const { limit, name } = argv;
 
-    store.list()
+    findOrList(name)
          .then(onResolve)
          .catch(onError);
 

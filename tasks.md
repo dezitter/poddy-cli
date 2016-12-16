@@ -4,7 +4,7 @@
 
 * [ ] add a commands/utils/index module to regroup utilities
 
-* [ ] list command: add optional [name] argument
+* [x] list command: add optional [name] argument
 * [x] list command: print episodes list
  * [x] list command: add a --limit option
  * [x] list command: adjust title to consistent width
