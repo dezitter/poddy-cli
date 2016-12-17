@@ -25,6 +25,8 @@ export function handler(argv) {
 
     store.find(name)
         .then(podcast => {
+            logger.info(`The following episodes of "${name}" will be downloaded shortly: ${numbers.join(', ')}`);
+
             const n = numbers[0];
             const episode = podcast.episodes.find(episode => (episode.number === n));
             const downloader = provider.getDownloader(podcast);

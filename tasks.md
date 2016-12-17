@@ -1,7 +1,7 @@
 * [x] [downloader] remove file if error/Ctrl-C
 * [x] [downloader] skip download if file exists
 
-* [ ] add more report
+* [x] add more report
  - "Updating ${n} podcasts"
  - "Download of ${n} episodes of ${name} will start shortly"
  - "0 episodes found in ${name}"

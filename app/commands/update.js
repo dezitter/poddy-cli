@@ -16,9 +16,13 @@ export function handler(argv) {
          .catch(onError);
 
     function onListResolve(podcasts) {
-        if (podcasts.length === 0) {
-            return logger.warning('You do not have any podcasts to update');
+        const length = podcasts.length;
+
+        if (length === 0) {
+            return logger.warning('You do not have any podcasts to update.');
         }
+
+        logger.info(`Updating ${length} podcasts, please be patient...`);
 
         podcasts.forEach(podcast => {
             fetchAndUpdate(podcast)

@@ -11,7 +11,7 @@ export default class Reporter {
 
     showAllPodcasts(podcasts) {
         if (podcasts.length === 0) {
-            this.logger.info('You don\'t have any podcasts yet.');
+            this.logger.warning('You don\'t have any podcasts yet.');
         }
 
         podcasts.forEach(podcast => this.showOnePodcast(podcast));
@@ -26,6 +26,10 @@ export default class Reporter {
     }
 
     showEpisodes(episodes, podcast) {
+        if (episodes.length === 0) {
+            this.logger.warning(`"${podcast.name}" does not have any episodes.`);
+        }
+
         episodes
             .slice(0, this.limit)
             .forEach(episode => this.showOneEpisode(episode, podcast));
