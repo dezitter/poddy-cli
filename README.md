@@ -28,7 +28,7 @@ Show basic usage information:
 ./bin/poddy help
 ```
 
-### add <name> <url>
+### add name url
 
 Add a new podcast by providing a name and a feed:
 
@@ -70,7 +70,7 @@ Update a single podcast:
 ./bin/poddy update TimFerris
 ```
 
-### search <text>
+### search text
 
 Performs a **local** search, i.e you need to run `update` first (see above).
 
@@ -79,7 +79,7 @@ Performs a **local** search, i.e you need to run `update` first (see above).
 ./bin/poddy search "javascript"
 ```
 
-### download <name> <numbers>
+### download name numbers
 
 Download podcast episodes:
 
@@ -90,7 +90,7 @@ Download podcast episodes:
 ./bin/poddy download TimFerris 0,1,5-9,12
 ```
 
-### remove <name>
+### remove name
 
 Remove a podcast:
 
