@@ -1,6 +1,6 @@
+import * as provider from '../provider';
 import { findOrList } from './utils/find-or-list';
 import { onError } from './utils/on-error';
-import { reportAll } from './utils/report-all';
 
 export const command = 'list [name] [--limit=NUMBER]';
 export const describe = 'List all podcasts';
@@ -14,12 +14,13 @@ export const builder = {
 
 export function handler(argv) {
     const { limit, name } = argv;
+    const reporter = provider.getReporter({ limit });
 
     findOrList(name)
          .then(onResolve)
          .catch(onError);
 
     function onResolve(podcasts) {
-        reportAll(podcasts, limit);
+        reporter.showAllPodcasts(podcasts);
     }
 }

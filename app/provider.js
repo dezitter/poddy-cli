@@ -2,6 +2,7 @@ import Datastore from 'nedb';
 
 import Downloader from './downloader';
 import Logger from './logger';
+import Reporter from './reporter';
 import Store from './store';
 
 const db = createDatabase();
@@ -35,4 +36,9 @@ export function getLogger() {
 
 export function getDownloader(podcast) {
     return new Downloader(podcast, { directory: downloadDirectory });
+}
+
+export function getReporter(options) {
+    options = Object.assign({ logger }, options);
+    return new Reporter(options);
 }
