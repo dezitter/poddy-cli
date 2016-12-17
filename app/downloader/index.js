@@ -16,38 +16,57 @@ export default class Downloader extends EventEmitter {
 
     download(episode) {
         this.filepath = getFilepath(this.directory, this.podcast, episode);
+        this.total = 0;
+        this.transferred = 0;
 
         const dirpath = path.dirname(this.filepath);
-        let total = 0;
-        let transferred = 0;
 
-        mkdirp(dirpath, err => {
+        mkdirp(dirpath, (err) => {
             if (err) throw err;
-
-            request(episode.enclosure.url)
-                .on('response', onResponse.bind(this))
-                .on('data', onData.bind(this))
-                .on('end', onEnd.bind(this))
-                .pipe(fs.createWriteStream(this.filepath));
+            fs.stat(this.filepath, onStat.bind(this));
         });
 
-        function onResponse(response) {
-            total = parseInt(response.headers['content-length'], 10);
-            this.emit('start', { filepath: this.filepath, total });
-        }
+        function onStat(err) {
+            // file exists
+            if (err === null) {
+                return this._emitFinish();
+            }
 
-        function onData(data) {
-            const length = data.length;
-
-            transferred = transferred + length;
-            this.emit('progress', { length, total, transferred });
-        }
-
-        function onEnd() {
-            this.emit('finish', { filepath: this.filepath });
+            request(episode.enclosure.url)
+                .on('response', this._emitStart.bind(this))
+                .on('data', this._emitProgress.bind(this))
+                .on('end', this._emitFinish.bind(this))
+                .pipe(fs.createWriteStream(this.filepath));
         }
 
         return this;
+    }
+
+    _emitStart(response) {
+        this.total = parseInt(response.headers['content-length'], 10);
+
+        this.emit('start', {
+            filepath: this.filepath,
+            total: this.total
+        });
+    }
+
+    _emitProgress(data) {
+        const length = data.length;
+
+        this.transferred = this.transferred + length;
+
+        this.emit('progress', {
+            length,
+            total: this.total,
+            transferred: this.transferred
+        });
+    }
+
+    _emitFinish() {
+        this.emit('finish', {
+            filepath: this.filepath
+        });
     }
 
     abort(cb) {
