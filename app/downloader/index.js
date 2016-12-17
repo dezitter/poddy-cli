@@ -3,19 +3,7 @@ import fs from 'fs';
 import mkdirp from 'mkdirp';
 import path from 'path';
 import request from 'request';
-import url from 'url';
-
-function getFilename(episode) {
-    return path.basename(
-        url.parse(episode.enclosure.url).pathname
-    );
-}
-
-function getFilepath(root, podcast, episode) {
-    const filename = getFilename(episode);
-
-    return path.join(root, podcast.name, filename);
-}
+import { getFilepath } from './get-filepath';
 
 export default class Downloader extends EventEmitter {
 
@@ -43,7 +31,6 @@ export default class Downloader extends EventEmitter {
                 .pipe(fs.createWriteStream(filepath));
         });
 
-
         function onResponse(response) {
             total = parseInt(response.headers['content-length'], 10);
             this.emit('start', { filepath, total });
@@ -52,11 +39,8 @@ export default class Downloader extends EventEmitter {
         function onData(data) {
             const length = data.length;
 
-            this.emit('progress', {
-                length,
-                total,
-                transferred: (transferred + length)
-            });
+            transferred = transferred + length;
+            this.emit('progress', { length, total, transferred });
         }
 
         function onEnd() {
