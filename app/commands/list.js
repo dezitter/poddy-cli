@@ -14,7 +14,7 @@ export const builder = {
 
 export function handler(argv) {
     const { limit, name } = argv;
-    const reporter = provider.getReporter({ limit });
+    const reporter = provider.getListReporter({ limit });
 
     findOrList(name)
          .then(onResolve)

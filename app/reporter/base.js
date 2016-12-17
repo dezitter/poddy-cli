@@ -20,13 +20,13 @@ export default class Reporter {
     showOnePodcast(podcast) {
         const epsNumber = podcast.episodes.length;
 
-        this.logger.log(`# ${podcast.name} - ${epsNumber} episodes (${podcast.url})`);
-        this.showAllEpisodes(podcast);
+        this.logger.header(`# ${podcast.name} - ${epsNumber} episodes (${podcast.url})`);
+        this.showEpisodes(podcast.episodes, podcast);
         this.logger.log('');
     }
 
-    showAllEpisodes(podcast) {
-        podcast.episodes
+    showEpisodes(episodes, podcast) {
+        episodes
             .slice(0, this.limit)
             .forEach(episode => this.showOneEpisode(episode, podcast));
 

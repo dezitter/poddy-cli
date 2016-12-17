@@ -23,6 +23,10 @@ export default class Logger {
         _log(`${level} ${msg}`);
     }
 
+    header(msg) {
+        _log(chalk.bold(msg));
+    }
+
     log(msg) {
         _log(msg);
     }

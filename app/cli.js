@@ -4,6 +4,7 @@ import * as addCommand      from './commands/add';
 import * as downloadCommand from './commands/download';
 import * as listCommand     from './commands/list';
 import * as removeCommand   from './commands/remove';
+import * as searchCommand   from './commands/search';
 import * as updateCommand   from './commands/update';
 
 yargs
@@ -12,6 +13,7 @@ yargs
     .command(downloadCommand)
     .command(listCommand)
     .command(removeCommand)
+    .command(searchCommand)
     .command(updateCommand)
     .demand(1)
     .strict()

@@ -14,5 +14,7 @@
 
 * [ ] [command/list] add sorting (name, by most recent ep., most ep. count)
 
-* [ ] add a search command to inspect title/description for a keyword
+* [x] add a search command to inspect title/description for a keyword
+* [ ] [commands/search] split text into words to search for all words
+* [ ] [commands/search] highlight matching text in report
 * [ ] add a commands/utils/index module to regroup utilities

@@ -70,6 +70,15 @@ Update a single podcast:
 ./bin/poddy update TimFerris
 ```
 
+### search <text>
+
+Performs a **local** search, i.e you need to run `update` first (see above).
+
+
+```shell
+./bin/poddy search "javascript"
+```
+
 ### download <name> <numbers>
 
 Download podcast episodes:
