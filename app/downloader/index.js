@@ -15,9 +15,9 @@ export default class Downloader extends EventEmitter {
     }
 
     download(episode) {
-        const filepath = getFilepath(this.directory, this.podcast, episode);
-        const dirpath = path.dirname(filepath);
+        this.filepath = getFilepath(this.directory, this.podcast, episode);
 
+        const dirpath = path.dirname(this.filepath);
         let total = 0;
         let transferred = 0;
 
@@ -28,12 +28,12 @@ export default class Downloader extends EventEmitter {
                 .on('response', onResponse.bind(this))
                 .on('data', onData.bind(this))
                 .on('end', onEnd.bind(this))
-                .pipe(fs.createWriteStream(filepath));
+                .pipe(fs.createWriteStream(this.filepath));
         });
 
         function onResponse(response) {
             total = parseInt(response.headers['content-length'], 10);
-            this.emit('start', { filepath, total });
+            this.emit('start', { filepath: this.filepath, total });
         }
 
         function onData(data) {
@@ -44,9 +44,13 @@ export default class Downloader extends EventEmitter {
         }
 
         function onEnd() {
-            this.emit('finish', { filepath });
+            this.emit('finish', { filepath: this.filepath });
         }
 
         return this;
+    }
+
+    abort(cb) {
+        fs.unlink(this.filepath, cb);
     }
 }

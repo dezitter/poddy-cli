@@ -36,6 +36,17 @@ export function handler(argv) {
                 .on('progress', onDownloadProgress)
                 .on('finish', onDownloadFinish);
 
+            process.on('SIGINT', onInterrupt);
+
+            function onInterrupt() {
+                downloader.abort(onAbort);
+
+                function onAbort(err) {
+                    if (err) logger.error(err);
+                    process.exit();
+                }
+            }
+
             function onDownloadStart(info) {
                 const title = ellipsize(episode.title);
 
