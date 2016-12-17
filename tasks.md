@@ -1,3 +1,6 @@
+* [ ] [downloader] remove file if error/Ctrl-C
+* [ ] [downloader] skip download if file exists
+
 * [ ] [command/add] update podcast once added
 * [ ] [command/add] validate url
 

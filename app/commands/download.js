@@ -8,7 +8,7 @@ export const command = 'download <name> <numbers>';
 export const describe = 'Download episodes from a podcast';
 
 function createProgressBar(info) {
-    return new ProgressBar('downloading [:bar] :rate/bps :percent :etas', {
+    return new ProgressBar('downloading [:bar] :percent :etas', {
         complete: '=',
         incomplete: ' ',
         width: 20,
