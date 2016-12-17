@@ -71,6 +71,11 @@ describe('#parseResponse()', function() {
                             type: 'audio/mpeg'
                         },
                         number: 1,
+                        guid: {
+                            _: '1',
+                            isPermaLink: 'false'
+                        },
+                        duration: '00:42:00',
                         pubDate: new Date(Date.UTC(2016, 11, 12, 0, 0, 0))
                     });
                 });

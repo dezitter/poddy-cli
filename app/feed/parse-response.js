@@ -27,9 +27,11 @@ export function parseResponse(response) {
 
 function parseItem(item) {
     return {
-        title: item.title.trim(),
         description: item.description,
+        duration: item['itunes:duration'],
+        enclosure: item.enclosure,
+        guid: item.guid,
         pubDate: new Date(item.pubDate),
-        enclosure: item.enclosure
+        title: item.title.trim()
     };
 }
