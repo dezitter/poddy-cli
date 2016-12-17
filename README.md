@@ -75,9 +75,9 @@ Update a single podcast:
 Download podcast episodes:
 
 ```shell
-./bin/poddy download timferris 1
-./bin/poddy download timferris 1,2
-./bin/poddy download timferris 1-5
+./bin/poddy download TimFerris 1
+./bin/poddy download TimFerris 1,2
+./bin/poddy download TimFerris 1-5
 ./bin/poddy download TimFerris 0,1,5-9,12
 ```
 
