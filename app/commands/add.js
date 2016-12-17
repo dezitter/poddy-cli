@@ -1,3 +1,5 @@
+import isUrl from 'validator/lib/isURL';
+
 import * as provider from '../provider';
 import { fetchAndUpdate } from '../feed/fetch-and-update';
 import { onError } from './utils/on-error';
@@ -11,6 +13,10 @@ export function handler(argv) {
 
     const store = provider.getStore();
     const logger = provider.getLogger();
+
+    if (!isUrl(url)) {
+        throw new Error(`Invalid feed url "${url}"`);
+    }
 
     store.add(name, url)
          .then(podcast => {

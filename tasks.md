@@ -10,7 +10,7 @@
 * [ ] [commands/list] show duration & file size
 
 * [x] [command/add] update podcast once added
-* [ ] [command/add] validate url
+* [x] [command/add] validate url
 
 * [ ] [command/list] add sorting (name, by most recent ep., most ep. count)
 
