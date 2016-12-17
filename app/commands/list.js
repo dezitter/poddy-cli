@@ -35,8 +35,8 @@ export function handler(argv) {
 
             podcast.episodes
                 .slice(0, limit)
-                .forEach((episode, i) => {
-                    const number = padNumberStart(i, epsNumber.toString().length);
+                .forEach(episode => {
+                    const number = padNumberStart(episode.number, epsNumber.toString().length);
                     const pubDate = formatDate(episode.pubDate);
                     const title = formatTitle(episode.title);
 

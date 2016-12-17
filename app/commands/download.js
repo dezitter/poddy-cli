@@ -26,7 +26,7 @@ export function handler(argv) {
     store.find(name)
         .then(podcast => {
             const n = numbers[0];
-            const episode = podcast.episodes[n];
+            const episode = podcast.episodes.find(episode => (episode.number === n));
             const downloader = provider.getDownloader(podcast);
             let progressBar;
 

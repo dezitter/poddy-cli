@@ -16,7 +16,9 @@ export function parseResponse(response) {
             if (err) return reject(err);
 
             data.title = result.rss.channel.title;
-            data.episodes = result.rss.channel.item.map(parseItem);
+            data.episodes = result.rss.channel.item.map((item, i) => {
+                return Object.assign({ number: i+1, }, parseItem(item));
+            });
 
             resolve(data);
         });

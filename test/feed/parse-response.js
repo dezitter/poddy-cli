@@ -59,26 +59,20 @@ describe('#parseResponse()', function() {
                     result.episodes.forEach(item => {
                         properties.forEach(prop => {
                             expect(item).to.have.property(prop);
-                        })
+                        });
                     });
 
-                    expect(result.episodes[0].title).to.equal('First item');
-                    expect(result.episodes[0].description).to.equal('This is the first item');
-                    expect(result.episodes[0].enclosure).to.eql({
-                        url: 'http://www.example.com/first.mp3',
-                        length: '0',
-                        type: 'audio/mpeg'
+                    expect(result.episodes[0]).to.eql({
+                        title: 'First item',
+                        description: 'This is the first item',
+                        enclosure:{
+                            url: 'http://www.example.com/first.mp3',
+                            length: '0',
+                            type: 'audio/mpeg'
+                        },
+                        number: 1,
+                        pubDate: new Date(Date.UTC(2016, 11, 12, 0, 0, 0))
                     });
-                });
-        });
-
-        it('parses date as Date instances', function() {
-            return parseResponse(this.rawXmlFeed)
-                .then(result => {
-                    const expectedTs = Date.UTC(2016, 11, 12, 0, 0, 0);
-
-                    expect(result.episodes[0].pubDate).to.be.an.instanceof(Date);
-                    expect(result.episodes[0].pubDate.getTime()).to.equal(expectedTs);
                 });
         });
     });
