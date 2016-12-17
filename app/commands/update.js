@@ -2,6 +2,7 @@ import * as provider from '../provider';
 import { fetchAndUpdate } from '../feed/fetch-and-update';
 import { findOrList } from './utils/find-or-list';
 import { onError } from './utils/on-error';
+import { reportUpdateResult } from './utils/report-update-result';
 
 export const command = 'update [name]';
 export const describe = 'Update all podcasts';
@@ -21,15 +22,8 @@ export function handler(argv) {
 
         podcasts.forEach(podcast => {
             fetchAndUpdate(podcast)
-                .then(showResults)
+                .then(reportUpdateResult)
                 .catch(onError);
         });
-    }
-
-    function showResults(podcast) {
-        const name = podcast.name;
-        const nbEps = podcast.episodes.length;
-
-        logger.info(`"${name}" updated, ${nbEps} episodes found.`);
     }
 }

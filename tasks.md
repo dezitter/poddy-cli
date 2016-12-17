@@ -9,7 +9,7 @@
 * [x] [parseResponse] retrieve guid/duration
 * [ ] [commands/list] show duration & file size
 
-* [ ] [command/add] update podcast once added
+* [x] [command/add] update podcast once added
 * [ ] [command/add] validate url
 
 * [ ] [command/list] add sorting (name, by most recent ep., most ep. count)
