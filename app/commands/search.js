@@ -12,7 +12,7 @@ function match(episode, text) {
 export function handler(argv) {
     const text = argv.text.toLowerCase();
     const store = provider.getStore();
-    const reporter = provider.getSearchReporter({
+    const printer = provider.getSearchPrinter({
         predicate: function(episode) {
             return match(episode, text);
         }
@@ -22,6 +22,6 @@ export function handler(argv) {
         .then(onResolve);
 
     function onResolve(podcasts) {
-        reporter.showAllPodcasts(podcasts);
+        printer.showAllPodcasts(podcasts);
     }
 }

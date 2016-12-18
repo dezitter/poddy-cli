@@ -1,6 +1,6 @@
-import BaseReporter from './base';
+import BasePrinter from './base';
 
-export default class SearchReporter extends BaseReporter {
+export default class SearchPrinter extends BasePrinter {
 
     constructor(options) {
         super(options);

@@ -14,13 +14,13 @@ export const builder = {
 
 export function handler(argv) {
     const { limit, name } = argv;
-    const reporter = provider.getListReporter({ limit });
+    const printer = provider.getListPrinter({ limit });
 
     findOrList(name)
          .then(onResolve)
          .catch(onError);
 
     function onResolve(podcasts) {
-        reporter.showAllPodcasts(podcasts);
+        printer.showAllPodcasts(podcasts);
     }
 }

@@ -4,7 +4,7 @@ import { formatFilesize } from './utils/format-filesize';
 import { formatTitle } from './utils/format-title';
 import { padNumberStart } from './utils/pad-number-start';
 
-export default class Reporter {
+export default class Printer {
 
     constructor(options) {
         this.limit = options.limit || Infinity;

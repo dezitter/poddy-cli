@@ -2,8 +2,8 @@ import Datastore from 'nedb';
 
 import Downloader from './downloader';
 import Logger from './logger';
-import ListReporter from './reporter/list';
-import SearchReporter from './reporter/search';
+import ListPrinter from './printer/list';
+import SearchPrinter from './printer/search';
 import Store from './store';
 
 const db = createDatabase();
@@ -39,12 +39,12 @@ export function getDownloader(podcast) {
     return new Downloader(podcast, { directory: downloadDirectory });
 }
 
-export function getListReporter(options) {
+export function getListPrinter(options) {
     options = Object.assign({ logger }, options);
-    return new ListReporter(options);
+    return new ListPrinter(options);
 }
 
-export function getSearchReporter(options) {
+export function getSearchPrinter(options) {
     options = Object.assign({ logger }, options);
-    return new SearchReporter(options);
+    return new SearchPrinter(options);
 }
