@@ -7,7 +7,9 @@
  - "0 episodes found in ${name}"
 
 * [x] [parseResponse] retrieve guid/duration
-* [ ] [commands/list] show duration & file size
+* [x] [commands/list] show duration & file size
+* [ ] [commands/list] add --name-only option
+* [ ] [commands/list] handle <name> not found
 
 * [x] [command/add] update podcast once added
 * [x] [command/add] validate url

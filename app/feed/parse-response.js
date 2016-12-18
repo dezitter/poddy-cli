@@ -26,9 +26,11 @@ export function parseResponse(response) {
 }
 
 function parseItem(item) {
+    const duration = item['itunes:duration'];
+
     return {
         description: item.description,
-        duration: item['itunes:duration'],
+        duration: duration && duration.trim(),
         enclosure: item.enclosure,
         guid: item.guid,
         pubDate: new Date(item.pubDate),
