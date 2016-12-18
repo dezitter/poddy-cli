@@ -9,7 +9,7 @@
 * [x] [parseResponse] retrieve guid/duration
 * [x] [commands/list] show duration & file size
 * [ ] [commands/list] add --name-only option
-* [ ] [commands/list] handle <name> not found
+* [x] [commands/list] handle <name> not found
 
 * [x] [command/add] update podcast once added
 * [x] [command/add] validate url

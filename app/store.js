@@ -38,7 +38,15 @@ export default class Store {
     find(name) {
         return this._promisify(cb => {
             this.db.findOne({ name }, cb);
-        });
+        })
+        .then(onResolve);
+
+        function onResolve(podcast) {
+            if (podcast === null) {
+                throw new Error(`Podcast "${name}" does not exist`);
+            }
+            return podcast;
+        }
     }
 
     update(podcast, patch) {
