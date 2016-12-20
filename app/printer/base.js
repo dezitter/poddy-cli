@@ -20,11 +20,14 @@ export default class Printer {
     }
 
     showOnePodcast(podcast) {
-        const epsNumber = podcast.episodes.length;
-
-        this.logger.header(`# ${podcast.name} - ${epsNumber} episodes (${podcast.url})`);
+        this._printPodcast(podcast);
         this.showEpisodes(podcast.episodes, podcast);
         this.logger.log('');
+    }
+
+    _printPodcast(podcast) {
+        const epsNumber = podcast.episodes.length;
+        this.logger.header(`# ${podcast.name} - ${epsNumber} episodes (${podcast.url})`);
     }
 
     showEpisodes(episodes, podcast) {
