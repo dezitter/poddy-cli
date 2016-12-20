@@ -41,14 +41,20 @@ export default class Printer {
     }
 
     showOneEpisode(episode, podcast) {
+        const { duration, filesize, number, pubDate, title } = this._getFormattedEpisodeFields(episode, podcast);
+
+        this.logger.log(`  [${number}] ${title} - ${duration} - ${filesize} - (${pubDate})`);
+    }
+
+    _getFormattedEpisodeFields(episode, podcast) {
         const epsNumber = podcast.episodes.length;
 
+        const duration = formatDuration(episode.duration);
+        const filesize = formatFilesize(episode.enclosure && episode.enclosure.length);
         const number = padNumberStart(episode.number, epsNumber.toString().length);
         const pubDate = formatDate(episode.pubDate);
         const title = formatTitle(episode.title);
-        const duration = formatDuration(episode.duration);
-        const filesize = formatFilesize(episode.enclosure && episode.enclosure.length);
 
-        this.logger.log(`  [${number}] ${title} - ${duration} - ${filesize} - (${pubDate})`);
+        return { duration, filesize, number, pubDate, title };
     }
 }

@@ -1,22 +1,12 @@
 import * as provider from '../provider';
 
-export const command = 'search <text>';
-export const describe = 'Search for episodes matching the text';
-
-function match(episode, text) {
-    const title = episode.title.toLowerCase();
-
-    return title.indexOf(text) !== -1;
-}
+export const command = 'search';
+export const describe = 'Search for episodes matching the text query';
 
 export function handler(argv) {
-    const text = argv.text.toLowerCase();
+    const text = argv._.slice(1).join(' ');
     const store = provider.getStore();
-    const printer = provider.getSearchPrinter({
-        predicate: function(episode) {
-            return match(episode, text);
-        }
-    });
+    const printer = provider.getSearchPrinter({ query: text });
 
     store.list()
         .then(onResolve);

@@ -3,6 +3,14 @@ import chalk from 'chalk';
 const _log = console.log.bind(console);
 const _error = console.error.bind(console);
 
+function highlightWordAt(msg, word, index) {
+    const hlWord = chalk.red(word);
+
+    return msg.substring(0, index)
+         + hlWord
+         + msg.substring(index + word.length);
+}
+
 export default class Logger {
 
     constructor(options) {
@@ -29,6 +37,22 @@ export default class Logger {
 
     log(msg) {
         _log(msg);
+    }
+
+    highlight(msg, words) {
+        let hlMsg = msg;
+        const lowerCasedMsg = msg.toLowerCase();
+
+        words.forEach(word => {
+            const i = lowerCasedMsg.indexOf(word);
+
+            if (i !== -1) {
+                hlMsg = highlightWordAt(hlMsg, word, i);
+            }
+        });
+
+        _log(hlMsg);
+
     }
 
     success(msg) {
