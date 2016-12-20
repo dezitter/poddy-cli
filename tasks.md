@@ -1,26 +1,7 @@
-* [x] [downloader] remove file if error/Ctrl-C
-* [x] [downloader] skip download if file exists
-
-* [x] add more report
- - "Updating ${n} podcasts"
- - "Download of ${n} episodes of ${name} will start shortly"
- - "0 episodes found in ${name}"
-
-* [x] [parseResponse] retrieve guid/duration
-* [x] [commands/list] show duration & file size
 * [ ] [commands/list] add --name-only option
-* [x] [commands/list] handle <name> not found
+* [ ] [commands/list] show already downloaded episodes
 
-* [x] [command/add] update podcast once added
-* [x] [command/add] validate url
-
-* [ ] [command/list] add sorting (name, by most recent ep., most ep. count)
-* [ ] [command/list] show already downloaded episodes
-
-* [x] add a search command to inspect title/description for a keyword
-* [ ] [commands/search] split text into words to search for all words
+* [ ] [commands/search] split text into words to search for all terms
 * [ ] [commands/search] highlight matching text in report
-* [ ] add a commands/utils/index module to regroup utilities
 
-* [x] update: only add new items, do not overwrite all podcast fields
 * [ ] add an import command
