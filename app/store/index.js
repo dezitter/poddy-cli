@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export default class Store {
 
     constructor(options) {
@@ -50,14 +52,37 @@ export default class Store {
     }
 
     update(name, patch) {
-        return this._promisify(cb => {
-            const query = { name };
-            const dbPach = { $set: patch };
+        return this.find(name)
+                   .then(onFindResolve.bind(this));
 
-            // MongoDB incompatible, but could use collection#findAndModify
-            const options = { returnUpdatedDocs: true };
+        function onFindResolve(podcast) {
+            return this._promisify(updateQuery.bind(this));
 
-            this.db.update(query, dbPach, options, (err, num, docs) => cb(err, docs));
-        });
+            function updateQuery(cb) {
+                const query = { name };
+                const dbPatch = buildUpdatePatch(patch);
+                // MongoDB incompatible, but could use collection#findAndModify
+                const options = { returnUpdatedDocs: true };
+
+                this.db.update(query, dbPatch, options, (err, num, docs) => cb(err, docs));
+            }
+
+            function buildUpdatePatch() {
+                const episodes = patch.episodes.filter(byPubDate);
+
+                return {
+                    $set: _.omit(patch, 'episodes'),
+                    $push: { episodes: { $each: episodes } }
+                };
+            }
+
+            function byPubDate(episode) {
+                const wasSynced = (podcast.cache !== undefined);
+                const syncedAt = (wasSynced && podcast.cache.syncedAt) || null;
+
+                return !wasSynced
+                ||     (syncedAt < episode.pubDate);
+            }
+        }
     }
 }

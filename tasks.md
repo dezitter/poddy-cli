@@ -22,5 +22,5 @@
 * [ ] [commands/search] highlight matching text in report
 * [ ] add a commands/utils/index module to regroup utilities
 
-* [ ] update: only add new items, do not overwrite all podcast fields
+* [x] update: only add new items, do not overwrite all podcast fields
 * [ ] add an import command

@@ -5,5 +5,5 @@ export function reportUpdateResult(podcast) {
     const nbEps = podcast.episodes.length;
     const logger = provider.getLogger();
 
-    logger.info(`"${name}" updated, ${nbEps} episodes found.`);
+    logger.info(`"${name}" updated, ${nbEps} episodes in total.`);
 }
