@@ -11,7 +11,7 @@ export function fetchAndUpdate(podcast) {
     function onResolve(result) {
         if (!result.fromCache) {
             const patch = buildUpdatePatch(result);
-            return store.update(podcast, patch);
+            return store.update(podcast.name, patch);
         }
 
         return podcast;

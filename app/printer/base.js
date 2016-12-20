@@ -35,7 +35,6 @@ export default class Printer {
         episodes
             .slice(0, this.limit)
             .forEach(episode => this.showOneEpisode(episode, podcast));
-
     }
 
     showOneEpisode(episode, podcast) {

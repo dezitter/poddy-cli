@@ -4,11 +4,11 @@ export default class Store {
         this.db = options.db;
     }
 
-    _promisify(operation) {
+    _promisify(callback) {
         return new Promise(executor.bind(this));
 
         function executor(resolve, reject) {
-            operation((err, result) => {
+            callback((err, result) => {
                 if (err) return reject(err);
                 resolve(result);
             });
@@ -49,11 +49,15 @@ export default class Store {
         }
     }
 
-    update(podcast, patch) {
+    update(name, patch) {
         return this._promisify(cb => {
-            this.db.update({ _id: podcast._id }, { $set: patch }, cb);
-        })
-        .then(() => this.find(podcast.name));
+            const query = { name };
+            const dbPach = { $set: patch };
 
+            // MongoDB incompatible, but could use collection#findAndModify
+            const options = { returnUpdatedDocs: true };
+
+            this.db.update(query, dbPach, options, (err, num, docs) => cb(err, docs));
+        });
     }
 }
