@@ -6,7 +6,6 @@
 
     <item>
       <title>First item</title>
-      <description>This is the first item</description>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       <enclosure url="http://www.example.com/first.mp3" length="0" type="audio/mpeg"/>
       <guid isPermaLink="false">1</guid>
@@ -15,7 +14,6 @@
 
     <item>
       <title>Second item</title>
-      <description>This is the second item</description>
       <pubDate>Mon, 5 Dec 2016 00:00:00 +0000</pubDate>
       <enclosure url="http://www.example.com/second.mp3" length="0" type="audio/mpeg"/>
       <guid isPermaLink="false">2</guid>
@@ -24,7 +22,6 @@
 
     <item>
       <title>Third item</title>
-      <description>This is the third item</description>
       <pubDate>Mon, 28 Nov 2016 00:00:00 +0000</pubDate>
       <enclosure url="http://www.example.com/third.mp3" length="0" type="audio/mpeg"/>
       <guid isPermaLink="false">3</guid>

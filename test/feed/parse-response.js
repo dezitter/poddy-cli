@@ -52,7 +52,7 @@ describe('#parseResponse()', function() {
         });
 
         it('parses the episodes', function() {
-            const properties = ['title', 'description', 'pubDate', 'enclosure'];
+            const properties = ['title', 'pubDate', 'enclosure'];
 
             return parseResponse(this.rawXmlFeed)
                 .then(result => {
@@ -64,7 +64,6 @@ describe('#parseResponse()', function() {
 
                     expect(result.episodes[0]).to.eql({
                         title: 'First item',
-                        description: 'This is the first item',
                         enclosure:{
                             url: 'http://www.example.com/first.mp3',
                             length: '0',

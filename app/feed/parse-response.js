@@ -29,7 +29,6 @@ function parseItem(item) {
     const duration = item['itunes:duration'];
 
     return {
-        description: item.description,
         duration: duration && duration.trim(),
         enclosure: item.enclosure,
         guid: item.guid,
