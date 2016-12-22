@@ -1,20 +1,10 @@
 import * as provider from '../provider';
-import ProgressBar from 'progress';
 import { ellipsize } from '../utils/ellipsize';
 import { onError } from './utils/on-error';
 import { parseNumbers } from './utils/parse-numbers';
 
 export const command = 'download <name> <numbers>';
 export const describe = 'Download episodes from a podcast';
-
-function createProgressBar(info) {
-    return new ProgressBar('downloading [:bar] :percent :etas', {
-        complete: '=',
-        incomplete: ' ',
-        width: 20,
-        total: info.total
-    });
-}
 
 export function handler(argv) {
     const name = argv.name;
@@ -53,7 +43,7 @@ export function handler(argv) {
                 const title = ellipsize(episode.title);
 
                 logger.info(`Starting download of ${title}`);
-                progressBar = createProgressBar(info);
+                progressBar = provider.getProgressBar(info);
             }
 
             function onDownloadProgress(info) {

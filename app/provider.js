@@ -1,4 +1,5 @@
 import Datastore from 'nedb';
+import ProgressBar from 'progress';
 
 import Downloader from './downloader';
 import Logger from './logger';
@@ -47,4 +48,13 @@ export function getListPrinter(options) {
 export function getSearchPrinter(options) {
     options = Object.assign({ logger }, options);
     return new SearchPrinter(options);
+}
+
+export function getProgressBar(options={}) {
+    return new ProgressBar('downloading [:bar] :percent :etas', {
+        complete: '=',
+        incomplete: ' ',
+        width: options.width || 20,
+        total: options.total
+    });
 }
