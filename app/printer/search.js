@@ -14,11 +14,12 @@ export default class SearchPrinter extends BasePrinter {
     constructor(options) {
         super(options);
 
-        this.words = _.words(options.query).map(_.lowerCase);
+        this.words = _.words(options.query);
     }
 
     showEpisodes(episodes, podcast) {
-        const filteredEpisodes = episodes.filter(episode => match(episode, this.words));
+        const words = this.words.map(_.lowerCase);
+        const filteredEpisodes = episodes.filter(episode => match(episode, words));
 
         if (episodes.length === 0) {
             this.logger.warning(`"${podcast.name}" does not have any episodes.`);
