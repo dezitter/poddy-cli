@@ -9,7 +9,8 @@ export default class ListPrinter extends BasePrinter{
 
     showOnePodcast(podcast) {
         if (this.nameOnly) {
-            this._printPodcast(podcast);
+            const message = this._formatPodcast(podcast);
+            this.logger.header(message);
         } else {
             super.showOnePodcast(podcast);
         }

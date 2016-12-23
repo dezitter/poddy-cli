@@ -25,8 +25,6 @@ export default class SearchPrinter extends BasePrinter {
 
         } else if (episodes.length > 0 && filteredEpisodes.length === 0) {
             this.logger.warning('No match found.');
-        } else {
-            this.logger.success(`Found ${filteredEpisodes.length} episode(s).`);
         }
 
         filteredEpisodes
@@ -34,8 +32,7 @@ export default class SearchPrinter extends BasePrinter {
     }
 
     showOneEpisode(episode, podcast) {
-        const { duration, filesize, number, pubDate, title } = this._getFormattedEpisodeFields(episode, podcast);
-
-        this.logger.highlight(`  [${number}] ${title} - ${duration} - ${filesize} - (${pubDate})`, this.words);
+        const message = this._formatEpisode(episode, podcast);
+        this.logger.highlight(message, this.words);
     }
 }

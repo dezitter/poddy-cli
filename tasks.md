@@ -6,3 +6,5 @@
 
 * [ ] add an import command
 * [ ] move DB to Mongo
+
+* [ ] [commands/search] fix highlighting words are lowercased

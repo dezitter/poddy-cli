@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { buildUpdatePatch } from './build-update-patch';
 
 export default class Store {
 
@@ -60,28 +60,11 @@ export default class Store {
 
             function updateQuery(cb) {
                 const query = { name };
-                const dbPatch = buildUpdatePatch(patch);
+                const dbPatch = buildUpdatePatch(podcast, patch);
                 // MongoDB incompatible, but could use collection#findAndModify
                 const options = { returnUpdatedDocs: true };
 
                 this.db.update(query, dbPatch, options, (err, num, docs) => cb(err, docs));
-            }
-
-            function buildUpdatePatch() {
-                const episodes = patch.episodes.filter(byPubDate);
-
-                return {
-                    $set: _.omit(patch, 'episodes'),
-                    $push: { episodes: { $each: episodes } }
-                };
-            }
-
-            function byPubDate(episode) {
-                const wasSynced = (podcast.cache !== undefined);
-                const syncedAt = (wasSynced && podcast.cache.syncedAt) || null;
-
-                return !wasSynced
-                ||     (syncedAt < episode.pubDate);
             }
         }
     }

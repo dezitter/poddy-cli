@@ -10,16 +10,14 @@ export function fetchAndParse(options) {
 function onFetchResolve(response) {
     return parseResponse(response.body)
         .then(result => {
-            return {
+            return Object.assign({
                 cache: getCacheEntity(response),
-                feed: result
-            };
+            }, result);
         });
 }
 
 function getCacheEntity(response) {
     const etag = response.headers['etag'];
-
     if (etag) return { etag };
 }
 

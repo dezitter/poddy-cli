@@ -9,6 +9,26 @@ function range(start, end) {
         .map((v,i) => v + i);
 }
 
+function parseRange(str) {
+    const match = str.match(RANGE_REGEX);
+    const start = parseInt(match[1], 10);
+    const end   = parseInt(match[2], 10);
+
+    if (end <= start) {
+        throw new Error(`One range in "${str}" is invalid`);
+    }
+
+    return range(start, end);
+}
+
+function parseToken(token) {
+   if (RANGE_REGEX.test(token)) {
+       return parseRange(token);
+   } else {
+       return [parseInt(token, 10)];
+   }
+}
+
 export function parseNumbers(str) {
     let numbers = [];
 
@@ -18,22 +38,10 @@ export function parseNumbers(str) {
         throw new Error(`${str} is not a valid expression`);
     }
 
-    str.replace(/ /g, '')
-       .split(',')
-       .forEach(v => {
-           if (RANGE_REGEX.test(v)) {
-               const match = v.match(RANGE_REGEX);
-               const start = parseInt(match[1], 10);
-               const end   = parseInt(match[2], 10);
-
-               if (end <= start) {
-                   throw new Error(`One range in "${str}" is invalid`);
-               }
-
-               numbers.push.apply(numbers, range(start, end));
-           } else {
-               numbers.push( parseInt(v, 10) );
-           }
+    str.split(',')
+       .forEach(token => {
+           const values = parseToken(token);
+           numbers.push.apply(numbers, values);
        });
 
     return numbers;

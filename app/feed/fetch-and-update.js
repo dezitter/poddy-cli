@@ -3,9 +3,9 @@ import { fetchAndParse } from './fetch-and-parse';
 
 export function fetchAndUpdate(podcast) {
     const store = provider.getStore();
-    const { cache, url } = podcast;
+    const { cache, syncedAt, url } = podcast;
 
-    return fetchAndParse({ cache, url })
+    return fetchAndParse({ cache, syncedAt, url })
         .then(onResolve);
 
     function onResolve(result) {
@@ -19,6 +19,5 @@ export function fetchAndUpdate(podcast) {
 }
 
 function buildUpdatePatch(result) {
-    const cache = Object.assign({}, result.cache, { syncedAt: new Date() });
-    return Object.assign({ cache }, result.feed);
+    return Object.assign({ syncedAt: new Date() }, result);
 }

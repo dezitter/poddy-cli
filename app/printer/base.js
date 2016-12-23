@@ -1,8 +1,7 @@
-import { formatDate } from './utils/format-date';
-import { formatDuration } from './utils/format-duration';
-import { formatFilesize } from './utils/format-filesize';
-import { formatTitle } from './utils/format-title';
-import { padNumberStart } from './utils/pad-number-start';
+import { getFormattedEpisodeFields } from './utils/get-formatted-episode-fields';
+
+const NO_PODCASTS_MESSAGE = 'You don\'t have any podcasts yet.';
+const NO_EPISODES_MESSAGE = 'No episodes found.';
 
 export default class Printer {
 
@@ -12,28 +11,20 @@ export default class Printer {
     }
 
     showAllPodcasts(podcasts) {
-        if (podcasts.length === 0) {
-            this.logger.warning('You don\'t have any podcasts yet.');
-        }
+        this._warnIfEmpty(podcasts, NO_PODCASTS_MESSAGE);
 
         podcasts.forEach(podcast => this.showOnePodcast(podcast));
     }
 
     showOnePodcast(podcast) {
-        this._printPodcast(podcast);
-        this.showEpisodes(podcast.episodes, podcast);
-        this.logger.log('');
-    }
+        const message = this._formatPodcast(podcast);
 
-    _printPodcast(podcast) {
-        const epsNumber = podcast.episodes.length;
-        this.logger.header(`# ${podcast.name} - ${epsNumber} episodes (${podcast.url})`);
+        this.logger.header(message);
+        this.showEpisodes(podcast.episodes, podcast);
     }
 
     showEpisodes(episodes, podcast) {
-        if (episodes.length === 0) {
-            this.logger.warning(`"${podcast.name}" does not have any episodes.`);
-        }
+        this._warnIfEmpty(episodes, NO_EPISODES_MESSAGE);
 
         episodes
             .slice(0, this.limit)
@@ -41,20 +32,24 @@ export default class Printer {
     }
 
     showOneEpisode(episode, podcast) {
-        const { duration, filesize, number, pubDate, title } = this._getFormattedEpisodeFields(episode, podcast);
+        const message = this._formatEpisode(episode, podcast);
 
-        this.logger.log(`  [${number}] ${title} - ${duration} - ${filesize} - (${pubDate})`);
+        this.logger.log(message);
     }
 
-    _getFormattedEpisodeFields(episode, podcast) {
-        const epsNumber = podcast.episodes.length;
+    _warnIfEmpty(collection, message) {
+        if (collection.length === 0) {
+            this.logger.warning(message);
+        }
+    }
 
-        const duration = formatDuration(episode.duration);
-        const filesize = formatFilesize(episode.enclosure && episode.enclosure.length);
-        const number = padNumberStart(episode.number, epsNumber.toString().length);
-        const pubDate = formatDate(episode.pubDate);
-        const title = formatTitle(episode.title);
+    _formatPodcast(podcast) {
+        const { episodes, name, url } = podcast;
+        return `# ${name} - ${episodes.length} episodes (${url})`;
+    }
 
-        return { duration, filesize, number, pubDate, title };
+    _formatEpisode(episode, podcast) {
+        const ep = getFormattedEpisodeFields(episode, podcast);
+        return `[${ep.number}] ${ep.title} - ${ep.duration} - ${ep.filesize} - (${ep.pubDate})`;
     }
 }

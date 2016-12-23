@@ -4,18 +4,18 @@ export function fetchFeed(options) {
     return request({
         uri: options.url,
         resolveWithFullResponse: true,
-        headers: buildHeaders(options.cache)
+        headers: buildHeaders(options)
     });
 }
 
-function buildHeaders(cache={}) {
+function buildHeaders(options={}) {
     let headers;
 
-    if (cache.etag) {
-        headers = { 'If-None-Match': cache.etag };
+    if (options.cache && options.cache.etag) {
+        headers = { 'If-None-Match': options.cache.etag };
     }
-    else if (cache.syncedAt) {
-        headers = { 'If-Modified-Since': cache.syncedAt.toUTCString() };
+    else if (options.syncedAt) {
+        headers = { 'If-Modified-Since': options.syncedAt.toUTCString() };
     }
 
     return headers;

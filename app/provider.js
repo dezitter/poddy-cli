@@ -8,7 +8,6 @@ import SearchPrinter from './printer/search';
 import Store from './store';
 
 const db = createDatabase();
-const env = process.env.NODE_ENV;
 const downloadDirectory = process.env.DOWNLOAD_DIRECTORY;
 
 function createDatabase() {
@@ -26,7 +25,7 @@ function createDatabase() {
 
 
 const store = new Store({ db });
-const logger = new Logger({ env });
+const logger = new Logger();
 
 export function getStore() {
     return store;
