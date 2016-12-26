@@ -1,4 +1,5 @@
 import * as provider from '../provider';
+import { getPodcastNames } from './utils/get-podcast-names';
 import { onError } from './utils/on-error';
 
 function handler(args) {
@@ -23,5 +24,6 @@ export default function removeCommand(vorpal) {
     return vorpal
         .command('remove <name>')
         .description('Remove a podcast')
+        .autocomplete({ data: getPodcastNames })
         .action(handler);
 }

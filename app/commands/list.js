@@ -1,5 +1,6 @@
 import * as provider from '../provider';
 import { findOrList } from './utils/find-or-list';
+import { getPodcastNames } from './utils/get-podcast-names';
 import { onError } from './utils/on-error';
 
 function handler(args) {
@@ -25,5 +26,6 @@ export default function listCommand(vorpal) {
         .description('List all podcasts')
         .option('--limit <limit>', 'Limit the number of episodes to show')
         .option('--name-only', 'Show podcast names only')
+        .autocomplete({ data: getPodcastNames })
         .action(handler);
 }

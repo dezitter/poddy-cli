@@ -1,6 +1,7 @@
 import * as provider from '../provider';
 import prettyBytes from 'pretty-bytes';
 import { ellipsize } from '../utils/ellipsize';
+import { getPodcastNames } from './utils/get-podcast-names';
 import { onError } from './utils/on-error';
 import { parseNumbers } from './utils/parse-numbers';
 
@@ -80,5 +81,6 @@ export default function listCommand(vorpal) {
     return vorpal
         .command('download <name> <numbers>')
         .description('Download episodes from a podcast')
+        .autocomplete({ data: getPodcastNames })
         .action( getHandler(vorpal) );
 }

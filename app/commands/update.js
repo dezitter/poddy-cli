@@ -1,6 +1,7 @@
 import * as provider from '../provider';
 import { fetchAndUpdate } from '../feed/fetch-and-update';
 import { findOrList } from './utils/find-or-list';
+import { getPodcastNames } from './utils/get-podcast-names';
 import { onError } from './utils/on-error';
 import { reportUpdateResult } from './utils/report-update-result';
 
@@ -35,5 +36,6 @@ export default function updateCommand(vorpal) {
     return vorpal
         .command('update [name]')
         .description('Update all podcasts, or the specified one.')
+        .autocomplete({ data: getPodcastNames })
         .action(handler);
 }
