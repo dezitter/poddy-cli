@@ -1,18 +1,22 @@
 import * as provider from '../provider';
 
-export const command = 'search';
-export const describe = 'Search for episodes matching the text query';
-
-export function handler(argv) {
-    const text = argv._.slice(1).join(' ');
+function handler(args) {
+    const text = args.terms.join(' ');
     const store = provider.getStore();
-    const logger = provider.getDefaultLogger();
+    const logger = provider.getLogger(this.log.bind(this));
     const printer = provider.getSearchPrinter({ logger, query: text });
 
-    store.list()
+    return store.list()
         .then(onResolve);
 
     function onResolve(podcasts) {
         printer.showAllPodcasts(podcasts);
     }
+}
+
+export default function updateCommand(vorpal) {
+    return vorpal
+        .command('search <terms...>')
+        .description('Search for episodes matching the text query')
+        .action(handler);
 }

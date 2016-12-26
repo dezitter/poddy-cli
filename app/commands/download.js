@@ -1,80 +1,84 @@
 import * as provider from '../provider';
+import prettyBytes from 'pretty-bytes';
 import { ellipsize } from '../utils/ellipsize';
 import { onError } from './utils/on-error';
 import { parseNumbers } from './utils/parse-numbers';
 
-export const command = 'download <name> <numbers>';
-export const describe = 'Download episodes from a podcast';
+function getHandler(vorpal) {
+    return function handler(args) {
+        const name = args.name;
 
-export function handler(argv) {
-    const name = argv.name;
+        const logger = provider.getLogger(this.log.bind(this));
+        const store = provider.getStore();
 
-    const logger = provider.getDefaultLogger();
-    const store = provider.getStore();
+        return store.find(name)
+            .then(onResolve)
+            .catch(onError);
 
-    store.find(name)
-        .then(onResolve)
-        .catch(onError);
+        function onResolve(podcast) {
+            const numbers = parseNumbers(args.numbers.toString());
 
-    function onResolve(podcast) {
-        let progressBar;
-        const numbers = parseNumbers(argv.numbers.toString());
-        const downloader = provider.getDownloader(podcast)
-            .on('start', onDownloadStart)
-            .on('progress', onDownloadProgress)
-            .on('finish', onDownloadFinish);
+            return new Promise(executor);
 
-        downloadNext();
+            function executor(resolve) {
+                const downloader = provider.getDownloader(podcast)
+                    .on('start', onDownloadStart)
+                    .on('progress', onDownloadProgress)
+                    .on('finish', onDownloadFinish);
 
-        process.on('SIGINT', onInterrupt);
-
-        function onInterrupt() {
-            downloader.abort(onAbort);
-
-            function onAbort() {
-                logger.warning('Aborting download and exitting');
-                process.exit();
-            }
-        }
-
-        function downloadNext() {
-            const episodeNumber = numbers.shift();
-
-            if (episodeNumber !== undefined) {
-                startDownload(episodeNumber);
-            }
-        }
-
-        function startDownload(episodeNumber) {
-            const episode = podcast.episodes.find(episode => {
-                return episode.number === episodeNumber;
-            });
-
-            if (episode) {
-                downloader.download(episode);
-            } else {
-                logger.warning(`Episode n°${episodeNumber} of ${podcast.name} could not be found`);
                 downloadNext();
+
+                function downloadNext() {
+                    const episodeNumber = numbers.shift();
+
+                    if (episodeNumber !== undefined) {
+                        startDownload(episodeNumber);
+                    } else {
+                        resolve();
+                    }
+                }
+
+                function startDownload(episodeNumber) {
+                    const episode = podcast.episodes.find(episode => {
+                        return episode.number === episodeNumber;
+                    });
+
+                    if (episode) {
+                        downloader.download(episode);
+                    } else {
+                        logger.warning(`Episode n°${episodeNumber} of ${podcast.name} could not be found`);
+                        downloadNext();
+                    }
+                }
+
+                function onDownloadStart(info) {
+                    const total = info.total;
+                    const title = ellipsize(info.episode.title);
+
+                    logger.info(`Starting download of ${title} (${total})`);
+                }
+
+                function onDownloadProgress(info) {
+                    const transferred = prettyBytes(info.transferred).padStart();
+                    const total = prettyBytes(info.total);
+
+                    vorpal.ui.redraw(`Downloading: ${ transferred } / ${total}`);
+                }
+
+                function onDownloadFinish(info) {
+                    const title = ellipsize(info.episode.title);
+                    logger.success(`${title} successfully downloaded at ${info.filepath}`);
+
+                    downloadNext();
+                }
             }
         }
+    };
+}
 
-        function onDownloadStart(info) {
-            const total = info.total;
-            const title = ellipsize(info.episode.title);
-
-            logger.info(`Starting download of ${title}`);
-            progressBar = provider.getProgressBar({ total });
-        }
-
-        function onDownloadProgress(info) {
-            progressBar.tick(info.length);
-        }
-
-        function onDownloadFinish(info) {
-            const title = ellipsize(info.episode.title);
-            logger.success(`${title} successfully downloaded at ${info.filepath}`);
-
-            downloadNext();
-        }
-    }
+export default function listCommand(vorpal) {
+    return vorpal
+        .command('download <name> <numbers>')
+        .description('Download episodes from a podcast')
+        .action( getHandler(vorpal) );
 }

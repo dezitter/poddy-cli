@@ -1,17 +1,14 @@
 import * as provider from '../provider';
 import { onError } from './utils/on-error';
 
-export const command = 'remove <name>';
-export const describe = 'Remove a podcast';
-
-export function handler(argv) {
-    const { name } = argv;
+function handler(args) {
+    const name = args.name;
     const store = provider.getStore();
-    const logger = provider.getDefaultLogger();
+    const logger = provider.getLogger(this.log.bind(this));
 
-    store.remove(name)
-         .then(onResolve)
-         .catch(onError);
+    return store.remove(name)
+        .then(onResolve)
+        .catch(onError);
 
     function onResolve(numRemoved) {
         if (numRemoved === 0) {
@@ -20,4 +17,11 @@ export function handler(argv) {
             logger.success(`"${name}" removed`);
         }
     }
+}
+
+export default function removeCommand(vorpal) {
+    return vorpal
+        .command('remove <name>')
+        .description('Remove a podcast')
+        .action(handler);
 }

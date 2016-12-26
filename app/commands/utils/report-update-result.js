@@ -1,9 +1,6 @@
-import * as provider from '../../provider';
-
-export function reportUpdateResult(podcast) {
+export function reportUpdateResult(podcast, logger) {
     const name = podcast.name;
     const nbEps = podcast.episodes.length;
-    const logger = provider.getDefaultLogger();
 
     logger.success(`"${name}" updated, ${nbEps} episode(s) in total.`);
 }

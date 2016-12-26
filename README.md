@@ -1,6 +1,6 @@
 # poddy
 
-> Command line podcast manager.
+> Interactive command line podcast manager.
 
 ## Install
 
@@ -20,12 +20,19 @@ npm run build
 
 ## Usage
 
+First you'll need to launch poddy.
+
+```shell
+$ ./bin/poddy
+poddy>
+```
+
 ### help
 
 Show basic usage information:
 
 ```shell
-./bin/poddy help
+poddy> help
 ```
 
 ### add name url
@@ -33,7 +40,7 @@ Show basic usage information:
 Add a new podcast by providing a name and a feed:
 
 ```shell
-./bin/poddy add TimFerris http://feeds.feedburner.com/thetimferrissshow
+poddy> add TimFerris http://feeds.feedburner.com/thetimferrissshow
 ```
 
 ### list [name] [--limit=NUMBER]
@@ -41,19 +48,25 @@ Add a new podcast by providing a name and a feed:
 List your podcasts:
 
 ```shell
-./bin/poddy list
+poddy> list
 ```
 
 List a single podcast:
 
 ```shell
-./bin/poddy list TimFerris
+poddy> list TimFerris
 ```
 
 Limit the number of episodes to show:
 
 ```shell
-./bin/poddy list TimFerris --limit=50
+poddy> list TimFerris --limit 50
+```
+
+Show podcat names only:
+
+```shell
+poddy> list --name-only
 ```
 
 ### update [name]
@@ -61,13 +74,13 @@ Limit the number of episodes to show:
 Update all your podcasts to retrieve new episodes if any:
 
 ```shell
-./bin/poddy update
+poddy> update
 ```
 
 Update a single podcast:
 
 ```shell
-./bin/poddy update TimFerris
+poddy> update TimFerris
 ```
 
 ### search text
@@ -76,7 +89,7 @@ Performs a **local** search, i.e you need to run `update` first (see above).
 
 
 ```shell
-./bin/poddy search "javascript"
+poddy> search "javascript"
 ```
 
 ### download name numbers
@@ -84,10 +97,19 @@ Performs a **local** search, i.e you need to run `update` first (see above).
 Download podcast episodes:
 
 ```shell
-./bin/poddy download TimFerris 1
-./bin/poddy download TimFerris 1,2
-./bin/poddy download TimFerris 1-5
-./bin/poddy download TimFerris 0,1,5-9,12
+poddy> download TimFerris 1
+```
+
+```shell
+poddy> download TimFerris 1,2
+```
+
+```shell
+poddy> download TimFerris 1-5
+```
+
+```shell
+poddy> download TimFerris 0,1,5-9,12
 ```
 
 ### remove name
@@ -95,7 +117,7 @@ Download podcast episodes:
 Remove a podcast:
 
 ```shell
-./bin/poddy remove TimFerris
+poddy> remove TimFerris
 ```
 
 ## License

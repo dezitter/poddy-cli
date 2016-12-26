@@ -4,16 +4,13 @@ import { findOrList } from './utils/find-or-list';
 import { onError } from './utils/on-error';
 import { reportUpdateResult } from './utils/report-update-result';
 
-export const command = 'update [name]';
-export const describe = 'Update all podcasts';
+function handler(args) {
+    const name = args.name;
+    const logger = provider.getLogger(this.log.bind(this));
 
-export function handler(argv) {
-    const name = argv.name;
-    const logger = provider.getDefaultLogger();
-
-    findOrList(name)
-         .then(onListResolve)
-         .catch(onError);
+    return findOrList(name)
+        .then(onListResolve)
+        .catch(onError);
 
     function onListResolve(podcasts) {
         const length = podcasts.length;
@@ -24,10 +21,19 @@ export function handler(argv) {
 
         logger.info(`Updating ${length} podcasts, please be patient...`);
 
-        podcasts.forEach(podcast => {
-            fetchAndUpdate(podcast)
-                .then(reportUpdateResult)
+        const promises = podcasts.map(podcast => {
+            return fetchAndUpdate(podcast)
+                .then(podcast => reportUpdateResult(podcast, logger))
                 .catch(onError);
         });
+
+        return Promise.all(promises);
     }
+}
+
+export default function updateCommand(vorpal) {
+    return vorpal
+        .command('update [name]')
+        .description('Update all podcasts, or the specified one.')
+        .action(handler);
 }
