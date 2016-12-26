@@ -1,4 +1,4 @@
-* [ ] add a clear command
+* [x] add a clear command
 
 * [ ] [commands/list] show already downloaded episodes
 * [ ] add an 'import' command
@@ -9,3 +9,4 @@
  - 'r' for remove
  - 's' for search
  - 'u' for update
+ - 'c' for update
