@@ -1,3 +1,5 @@
+/* eslint no-console: ["error", { allow: ["log"] }] */
+
 import Datastore from 'nedb';
 import ProgressBar from 'progress';
 
@@ -23,16 +25,18 @@ function createDatabase() {
     return db;
 }
 
-
 const store = new Store({ db });
-const logger = new Logger();
 
 export function getStore() {
     return store;
 }
 
-export function getLogger() {
-    return logger;
+export function getLogger(log) {
+    return new Logger(log);
+}
+
+export function getDefaultLogger() {
+    return getLogger(console.log.bind(console));
 }
 
 export function getDownloader(podcast) {
@@ -40,12 +44,10 @@ export function getDownloader(podcast) {
 }
 
 export function getListPrinter(options) {
-    options = Object.assign({ logger }, options);
     return new ListPrinter(options);
 }
 
 export function getSearchPrinter(options) {
-    options = Object.assign({ logger }, options);
     return new SearchPrinter(options);
 }
 

@@ -7,7 +7,7 @@ export const describe = 'Remove a podcast';
 export function handler(argv) {
     const { name } = argv;
     const store = provider.getStore();
-    const logger = provider.getLogger();
+    const logger = provider.getDefaultLogger();
 
     store.remove(name)
          .then(onResolve)

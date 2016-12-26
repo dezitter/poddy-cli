@@ -18,7 +18,8 @@ export const builder = {
 
 export function handler(argv) {
     const { limit, name, nameOnly } = argv;
-    const printer = provider.getListPrinter({ limit, nameOnly });
+    const logger = provider.getDefaultLogger();
+    const printer = provider.getListPrinter({ limit, logger, nameOnly });
 
     findOrList(name)
          .then(onResolve)

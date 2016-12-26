@@ -12,7 +12,7 @@ export function handler(argv) {
     const { name, url } = argv;
 
     const store = provider.getStore();
-    const logger = provider.getLogger();
+    const logger = provider.getDefaultLogger();
 
     if (!isUrl(url)) {
         throw new Error(`Invalid feed url "${url}"`);

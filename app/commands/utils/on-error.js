@@ -11,7 +11,7 @@ function isDevelopment() {
 
 export function onError(err) {
     provider
-        .getLogger()
+        .getDefaultLogger()
         .error(err);
 
     if (isDevelopment()) console.error(err);

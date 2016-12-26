@@ -1,3 +1,11 @@
+* move to interactive app using [vorpal](https://github.com/dthree/vorpal)
+
 * [ ] [commands/list] show already downloaded episodes
-* [ ] add a 'show' command to get more details on an episode
 * [ ] add an 'import' command
+* [ ] add command aliases
+ - 'a' for add
+ - 'd' for download
+ - 'l' for list
+ - 'r' for remove
+ - 's' for search
+ - 'u' for update

@@ -9,7 +9,7 @@ export const describe = 'Update all podcasts';
 
 export function handler(argv) {
     const name = argv.name;
-    const logger = provider.getLogger();
+    const logger = provider.getDefaultLogger();
 
     findOrList(name)
          .then(onListResolve)

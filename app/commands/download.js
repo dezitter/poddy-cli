@@ -9,7 +9,7 @@ export const describe = 'Download episodes from a podcast';
 export function handler(argv) {
     const name = argv.name;
 
-    const logger = provider.getLogger();
+    const logger = provider.getDefaultLogger();
     const store = provider.getStore();
 
     store.find(name)
