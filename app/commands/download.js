@@ -60,8 +60,9 @@ function getHandler(vorpal) {
                 }
 
                 function onDownloadProgress(info) {
-                    const transferred = prettyBytes(info.transferred).padStart();
                     const total = prettyBytes(info.total);
+                    const transferred = prettyBytes(info.transferred)
+                        .padStart(9);
 
                     vorpal.ui.redraw(`Downloading: ${ transferred } / ${total}`);
                 }
