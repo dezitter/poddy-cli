@@ -1,5 +1,3 @@
-* add -a/-all option to show everything
-
 * move to TypeScript
 * use prepublish field to pre-transpile before publishing
 * provide an executable via npm install -g

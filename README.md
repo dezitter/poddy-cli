@@ -63,6 +63,12 @@ Specify the number of episodes to show:
 poddy> list TimFerris --count 5
 ```
 
+Show all episodes:
+
+```shell
+poddy> list TimFerris --all
+```
+
 Show podcat names only:
 
 ```shell

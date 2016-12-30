@@ -25,6 +25,10 @@ function handler(args) {
 function getCount(options) {
     let count = options.count;
 
+    if (options.all) {
+        return Infinity;
+    }
+
     if (count === undefined) {
         count = DEFAULT_COUNT;
     }
@@ -40,6 +44,7 @@ export default function listCommand(vorpal) {
     return vorpal
         .command('list [name]')
         .description('List all podcasts')
+        .option('-a, --all', 'Show all episodes')
         .option('-c, --count [count]', 'Number of episodes to show / podcast')
         .option('--name-only', 'Show podcast names only')
         .autocomplete({ data: getPodcastNames })
