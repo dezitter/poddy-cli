@@ -6,7 +6,7 @@ const NO_EPISODES_MESSAGE = 'No episodes found.';
 export default class Printer {
 
     constructor(options) {
-        this.limit = options.limit || Infinity;
+        this.count = options.count;
         this.logger = options.logger;
     }
 
@@ -27,7 +27,7 @@ export default class Printer {
         this._warnIfEmpty(episodes, NO_EPISODES_MESSAGE);
 
         episodes
-            .slice(0, this.limit)
+            .slice(0, this.count)
             .forEach(episode => this.showOneEpisode(episode, podcast));
     }
 
