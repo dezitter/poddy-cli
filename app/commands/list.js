@@ -33,7 +33,7 @@ function getCount(options) {
         count = DEFAULT_COUNT;
     }
 
-    if (typeof count !== 'number' || isNaN(count)) {
+    if (typeof count !== 'number' || Number.isNaN(count)) {
         throw new Error(`Invalid count, got "${count}"`);
     }
 
