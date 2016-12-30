@@ -1,12 +1,10 @@
-* [x] add a clear command
+* remove --limit and show only X last episodes by default
+* add -a/-all option to show everything
+* add -c/--count=X to specify number of episodes to show
 
-* [ ] [commands/list] show already downloaded episodes
-* [ ] add an 'import' command
-* [ ] add command aliases
- - 'a' for add
- - 'd' for download
- - 'l' for list
- - 'r' for remove
- - 's' for search
- - 'u' for update
- - 'c' for update
+* move to TypeScript
+* use prepublish field to pre-transpile before publishing
+* provide an executable via npm install -g
+
+* add an 'import' command
+* [commands/list] show already downloaded episodes
