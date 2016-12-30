@@ -3,9 +3,11 @@ import { findOrList } from './utils/find-or-list';
 import { getPodcastNames } from './utils/get-podcast-names';
 import { onError } from './utils/on-error';
 
+const DEFAULT_COUNT = parseInt(process.env.DEFAULT_COUNT, 10);
+
 function handler(args) {
     const name = args.name;
-    const count = process.env.DEFAULT_COUNT;
+    const count = getCount(args.options);
     const nameOnly = args.options['name-only'];
 
     const logger = provider.getLogger(this.log.bind(this));
@@ -20,10 +22,25 @@ function handler(args) {
     }
 }
 
+function getCount(options) {
+    let count = options.count;
+
+    if (count === undefined) {
+        count = DEFAULT_COUNT;
+    }
+
+    if (typeof count !== 'number' || isNaN(count)) {
+        throw new Error(`Invalid count, got "${count}"`);
+    }
+
+    return count;
+}
+
 export default function listCommand(vorpal) {
     return vorpal
         .command('list [name]')
         .description('List all podcasts')
+        .option('-c, --count [count]', 'Number of episodes to show / podcast')
         .option('--name-only', 'Show podcast names only')
         .autocomplete({ data: getPodcastNames })
         .action(handler);

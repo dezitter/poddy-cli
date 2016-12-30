@@ -1,5 +1,4 @@
 * add -a/-all option to show everything
-* add -c/--count=X to specify number of episodes to show
 
 * move to TypeScript
 * use prepublish field to pre-transpile before publishing

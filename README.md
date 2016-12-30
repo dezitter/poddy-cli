@@ -43,7 +43,7 @@ Add a new podcast by providing a name and a feed:
 poddy> add TimFerris http://feeds.feedburner.com/thetimferrissshow
 ```
 
-### list [name]
+### list [name] [-c/--count X]
 
 List your podcasts:
 
@@ -55,6 +55,12 @@ List a single podcast:
 
 ```shell
 poddy> list TimFerris
+```
+
+Specify the number of episodes to show:
+
+```shell
+poddy> list TimFerris --count 5
 ```
 
 Show podcat names only:
