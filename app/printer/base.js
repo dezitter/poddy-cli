@@ -27,6 +27,7 @@ export default class Printer {
         this._warnIfEmpty(episodes, NO_EPISODES_MESSAGE);
 
         episodes
+            .reverse()
             .slice(0, this.count)
             .forEach(episode => this.showOneEpisode(episode, podcast));
     }
